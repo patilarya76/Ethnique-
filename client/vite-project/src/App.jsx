@@ -23,6 +23,11 @@ import LoyaltyFloating from "../src/components/Loaylatyfloating.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import { Toaster } from "react-hot-toast";
 import Footer from "../src/components/Footer.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
+import ContactPage from "./pages/ContactPage.jsx";
+import ShippingPage from "./pages/ShippingPage.jsx";
+import ReturnsPage from "./pages/ReturnsPage.jsx";
+import LoyaltyPage from "./pages/loyalty.jsx";
 
 // Admin Layout
 import AdminLayout from "./layouts/AdminLayout.jsx";
@@ -112,9 +117,19 @@ function AppContent() {
         </ProtectedRoute>
       }
     />
-  </Route>
 
+  </Route>
+    <Route path="/about" element={<AboutPage />} />
+
+<Route path="/contact" element={<ContactPage />} />
+
+<Route path="/shipping" element={<ShippingPage />} />
+
+<Route path="/returns" element={<ReturnsPage />} />
+
+<Route path="/loyalty" element={<LoyaltyPage />} />
 </Routes>
+
 <Footer />
     </>
   );

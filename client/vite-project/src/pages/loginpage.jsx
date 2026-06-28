@@ -58,62 +58,156 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow">
+  <div className="min-h-screen bg-[#F8F5F2] flex items-center justify-center px-4">
 
-        <h2 className="text-2xl text-center mb-6">
-          {isLogin ? "Login" : "Sign Up"}
+    <div
+      className="
+      w-full
+      max-w-md
+      bg-white
+      rounded-3xl
+      shadow-xl
+      border
+      border-[#ECE6DE]
+      p-10
+    "
+    >
+      <div className="text-center mb-8">
+
+        <p className="text-sm tracking-[4px] text-[#B08B57] uppercase">
+          Ethnique by Jayant
+        </p>
+
+        <h2 className="text-3xl font-serif text-[#6D1830] mt-3">
+          {isLogin ? "Welcome Back" : "Create Account"}
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-
-          {!isLogin && (
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border px-4 py-2"
-            />
-          )}
-
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border px-4 py-2"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border px-4 py-2"
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-black text-white py-2"
-          >
-            {isLogin ? "Login" : "Sign Up"}
-          </button>
-        </form>
-
-        <p className="text-center mt-4">
-          {isLogin ? "No account?" : "Already have an account?"}
-          <span
-            onClick={() => setIsLogin(!isLogin)}
-            className="ml-1 underline cursor-pointer"
-          >
-            {isLogin ? "Sign Up" : "Login"}
-          </span>
+        <p className="text-gray-500 mt-2">
+          {isLogin
+            ? "Login to continue shopping"
+            : "Join the Ethnique family"}
         </p>
 
       </div>
+
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-5"
+      >
+        {!isLogin && (
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) =>
+              setName(e.target.value)
+            }
+            className="
+              w-full
+              border
+              border-[#DDD]
+              rounded-xl
+              px-4
+              py-3
+              focus:outline-none
+              focus:ring-2
+              focus:ring-[#6D1830]
+            "
+          />
+        )}
+
+        <input
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+          className="
+            w-full
+            border
+            border-[#DDD]
+            rounded-xl
+            px-4
+            py-3
+            focus:outline-none
+            focus:ring-2
+            focus:ring-[#6D1830]
+          "
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+          className="
+            w-full
+            border
+            border-[#DDD]
+            rounded-xl
+            px-4
+            py-3
+            focus:outline-none
+            focus:ring-2
+            focus:ring-[#6D1830]
+          "
+        />
+
+        <button
+          type="submit"
+          className="
+            w-full
+            bg-[#6D1830]
+            text-white
+            py-3
+            rounded-xl
+            font-medium
+            hover:bg-[#551224]
+            transition-all
+            duration-300
+          "
+        >
+          {isLogin
+            ? "Login"
+            : "Create Account"}
+        </button>
+      </form>
+
+      <div className="mt-8 text-center">
+
+        <p className="text-gray-600">
+
+          {isLogin
+            ? "New to Ethnique?"
+            : "Already have an account?"}
+
+          <button
+            onClick={() =>
+              setIsLogin(!isLogin)
+            }
+            className="
+              ml-2
+              text-[#6D1830]
+              font-medium
+              hover:underline
+            "
+          >
+            {isLogin
+              ? "Create Account"
+              : "Login"}
+          </button>
+
+        </p>
+
+      </div>
+
     </div>
-  );
+
+  </div>
+);
 };
 
 export default Login; 

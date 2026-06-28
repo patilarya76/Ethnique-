@@ -59,8 +59,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
           {/* Logo */}
-          <div className="flex items-center gap-5">
-
+        <div className="flex items-center min-w-[320px]">
   <button
     onClick={() => setMenuOpen(true)}
     className="
@@ -73,14 +72,13 @@ const Navbar = () => {
     <Menu size={24} />
   </button>
 
-  <Link to="/">
+  <Link to="/" className="ml-10">
     <img
       src={logo}
       alt="logo"
       className="h-16 object-contain"
     />
   </Link>
-
 </div>
 
           {/* Menu */}
@@ -251,6 +249,8 @@ const Navbar = () => {
     bg-[#FAF7F2]
     shadow-2xl
     z-50
+    flex
+    flex-col
     transform
     transition-all
     duration-300
@@ -263,42 +263,53 @@ const Navbar = () => {
 >
 
   {/* Header */}
-  <div className="flex items-center justify-between p-6 border-b border-[#E8E2DC]">
-    {user && (
-  <div className="p-6 border-b border-[#E8E2DC]">
 
-    <p className="font-medium text-[#6D1830]">
-      Hello, {user?.name}
-    </p>
+ <div className="border-b border-[#E8E2DC] p-6">
 
-    <button
-      onClick={logout}
+  {/* Top Row */}
+  <div className="flex items-center justify-between">
+
+    {/* <button
+      onClick={() => setMenuOpen(false)}
       className="
-        mt-2
-        text-sm
-        text-red-500
+        p-2
+        rounded-full
+        hover:bg-[#F3EEE7]
+        transition
       "
     >
-      Logout
-    </button>
+      <X size={24} />
+    </button> */}
 
-  </div>
-)}
-
-    <h2 className="font-semibold text-lg text-[#6D1830]">
+    <h2 className="font-serif text-2xl text-[#6D1830]">
       Menu
     </h2>
 
-    <button
-      onClick={() => setMenuOpen(false)}
-    >
-      <X size={24} />
-    </button>
-
   </div>
 
+  {/* User Section */}
+  {user && (
+    <div className="mt-8">
+
+      <p className="text-xs uppercase tracking-[2px] text-gray-400">
+  Welcome Back
+</p>
+
+<p className="text-xl font-semibold text-[#6D1830] mt-2">
+  {user?.name?.split(" ")[0]}
+</p>
+
+      
+
+    </div>
+  )}
+
+</div>
+
+<div className="flex-1 overflow-y-auto">
+
   {/* Main Links */}
-  <div className="p-6 space-y-5">
+  <div className="p-6 space-y-7">
 
     <Link
       to="/"
@@ -394,9 +405,32 @@ const Navbar = () => {
     >
       Return Policy
     </Link>
+  
 
   </div>
 
+<div className="p-6 border-t border-[#E8E2DC]">
+
+  <button
+    onClick={logout}
+    className="
+  w-full
+  py-3
+  rounded-xl
+  bg-[#8C2F4D]
+  text-white
+  font-medium
+  hover:bg-[#74263F]
+  transition-all
+  duration-300
+  shadow-sm
+"
+  >
+    Logout
+  </button>
+
+</div>
+</div>
 </div>
     </>
   );

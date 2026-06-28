@@ -19,6 +19,8 @@ function SareeSection() {
   const [products, setProducts] = useState([]);
   const { addToWishlist } =
   useContext(WishlistContext);
+  const [featuredSection, setFeaturedSection] =
+  useState(null);
 
 
 const { addToCart } =
@@ -26,7 +28,31 @@ const { addToCart } =
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+    fetchFeaturedSection();
+  }, []); 
+
+const fetchFeaturedSection = async () => {
+  try {
+    const response =
+      await fetch(
+        "http://localhost:5000/api/homepage"
+      );
+
+    const data =
+      await response.json();
+
+    console.log("HOMEPAGE DATA:", data);
+
+    setFeaturedSection(data);
+
+  } catch (error) {
+    console.log(
+      "HOMEPAGE ERROR:",
+      error
+    );
+  }
+};
+
 
   const fetchProducts = async () => {
   try {
@@ -43,6 +69,7 @@ const { addToCart } =
     console.log("FETCH ERROR:", error);
   }
 };
+console.log("FEATURED:", featuredSection);
 // console.log(products);
   return (
     <section
@@ -85,9 +112,12 @@ const { addToCart } =
   "
 >
 
-  <img
-    src="/featured.jpg"
-    alt="featured"
+  {featuredSection?.videoUrl && (
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
     className="
       absolute
       inset-0
@@ -95,7 +125,13 @@ const { addToCart } =
       h-full
       object-cover
     "
-  />
+  >
+    <source
+      src={featuredSection.videoUrl}
+      type="video/mp4"
+    />
+  </video>
+)}
 
   <div
     className="
@@ -115,26 +151,27 @@ const { addToCart } =
     </span>
 
     <h3 className="text-5xl font-serif mt-3">
-      Cotton Collection
+      {featuredSection?.title}
     </h3>
 
     <p className="mt-4 max-w-sm">
-      Handwoven cotton sarees crafted for timeless elegance.
+      {featuredSection?.subtitle}
     </p>
 
-    <button
-      className="
-        mt-6
-        bg-white
-        text-black
-        px-6
-        py-3
-        rounded-full
-        w-fit
-      "
-    >
-      Shop Collection
-    </button>
+    <Link
+  to={featuredSection?.buttonLink}
+  className="
+    mt-6
+    bg-white
+    text-black
+    px-6
+    py-3
+    rounded-full
+    w-fit
+  "
+>
+  {featuredSection?.buttonText}
+</Link>
 
   </div>
 </div>

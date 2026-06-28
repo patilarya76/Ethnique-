@@ -5,6 +5,8 @@ require("dotenv").config();
 const streamifier = require("streamifier");
 const multer = require("multer");
 const cloudinary = require("./config/cloudinary");
+const homepageRoutes =
+  require("./routes/homepageRoutes");
 
 const storage = multer.memoryStorage();
 
@@ -20,6 +22,10 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/admin", adminRoutes);
+app.use(
+  "/api/homepage",
+  homepageRoutes
+);
 
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
@@ -71,7 +77,24 @@ app.post(
     }
   }
 );
+app.get("/test", (req, res) => {
+  res.json({
+    success: true
+  });
+});
 
+// router.get("/homepage", async (req, res) => {
+//   try {
+//     const section =
+//       await Homepage.findOne();
+
+//     res.json(section);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: error.message,
+//     });
+//   }
+// });
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
