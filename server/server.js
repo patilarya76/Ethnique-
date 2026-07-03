@@ -7,25 +7,34 @@ const multer = require("multer");
 const cloudinary = require("./config/cloudinary");
 const homepageRoutes =
   require("./routes/homepageRoutes");
+const profileRoutes =
+  require("./routes/profileRoutes");
 
 const storage = multer.memoryStorage();
-
+const addressRoutes =
+  require("./routes/addressRoutes");
 const upload = multer({
   storage,
 });
-
+const userRoutes = require("./routes/userroutes");
 const app = express();
 const connectDB = require("./config/db");
-connectDB();
+connectDB();  
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/admin", adminRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/profile", profileRoutes);
 app.use(
   "/api/homepage",
-  homepageRoutes
+  homepageRoutes 
 );
+app.use(
+  "/api/address", addressRoutes); 
+
+
 
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");

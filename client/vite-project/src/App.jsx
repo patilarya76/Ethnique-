@@ -28,6 +28,7 @@ import ContactPage from "./pages/ContactPage.jsx";
 import ShippingPage from "./pages/ShippingPage.jsx";
 import ReturnsPage from "./pages/ReturnsPage.jsx";
 import LoyaltyPage from "./pages/loyalty.jsx";
+import Profile from "./pages/profile.jsx";
 
 // Admin Layout
 import AdminLayout from "./layouts/AdminLayout.jsx";
@@ -76,6 +77,11 @@ function AppContent() {
     path="/admin/login"
     element={<AdminLogin />}
   />
+  
+  <Route
+  path="/profile"
+  element={<Profile />}
+/>
 
   {/* Admin Routes */}
   <Route

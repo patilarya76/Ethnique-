@@ -187,18 +187,33 @@ const Navbar = () => {
   </Link>
 )} */}
 
-<Link to="/login">
-  <User
-    size={22}
-    className="
-      cursor-pointer
-      transition-all
-      duration-300
-      hover:text-[#8C2F4D]
-      hover:scale-110
-    "
-  />
-</Link>
+{user ? (
+  <Link to="/profile">
+    <User
+      size={22}
+      className="
+        cursor-pointer
+        transition-all
+        duration-300
+        hover:text-[#8C2F4D]
+        hover:scale-110
+      "
+    />
+  </Link>
+) : (
+  <Link to="/login">
+    <User
+      size={22}
+      className="
+        cursor-pointer
+        transition-all
+        duration-300
+        hover:text-[#8C2F4D]
+        hover:scale-110
+      "
+    />
+  </Link>
+)}
 
             {/* <CurrencyToggle /> */}
             <select

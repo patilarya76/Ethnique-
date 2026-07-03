@@ -58,37 +58,148 @@ function AllProducts() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
 
-      {/* Heading */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold">
-          All Cotton Sarees
-        </h1>
+      {/* Hero Section */}
+<div className="relative h-[300px] rounded-3xl overflow-hidden mb-10">
 
-        <p className="text-gray-500 mt-2">
-          Browse our complete collection.
-        </p>
-      </div>
+  <img
+    src="https://images.unsplash.com/photo-1610030469983-98e550d6193c"
+    alt=""
+    className="w-full h-full object-cover"
+  />
+
+  <div className="absolute inset-0 bg-black/40" />
+
+  <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+
+    <p className="uppercase tracking-[5px] mb-2">
+      Ethnique By Jayant
+    </p>
+
+    <h1 className="text-5xl font-bold">
+      Cotton Sarees
+    </h1>
+
+    <p className="mt-4 text-lg">
+      Handcrafted Elegance For Every Occasion
+    </p>
+
+  </div>
+
+</div>
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+
+  <div className="bg-white p-5 rounded-xl shadow-sm text-center">
+    <h3 className="text-2xl font-bold">
+      {products.length}+
+    </h3>
+    <p className="text-gray-500">
+      Designs
+    </p>
+  </div>
+
+  <div className="bg-white p-5 rounded-xl shadow-sm text-center">
+    <h3 className="text-2xl font-bold">
+      100%
+    </h3>
+    <p className="text-gray-500">
+      Cotton
+    </p>
+  </div>
+
+  <div className="bg-white p-5 rounded-xl shadow-sm text-center">
+    <h3 className="text-2xl font-bold">
+      Handmade
+    </h3>
+    <p className="text-gray-500">
+      Craftsmanship
+    </p>
+  </div>
+
+  <div className="bg-white p-5 rounded-xl shadow-sm text-center">
+    <h3 className="text-2xl font-bold">
+      Free
+    </h3>
+    <p className="text-gray-500">
+      Shipping
+    </p>
+  </div>
+
+</div>
 
       {/* Search */}
-      <input
-        type="text"
-        placeholder="Search sarees..."
-        value={search}
-        onChange={(e) =>
-          setSearch(e.target.value)
-        }
-        className="
-          w-full
-          border
-          rounded-lg
-          p-3
-          mb-10
-          outline-none
-        "
-      />
+      <div className="mb-8">
 
+  <input
+    type="text"
+    placeholder="Search sarees..."
+    value={search}
+    onChange={(e) =>
+      setSearch(e.target.value)
+    }
+    className="
+      w-full
+      border
+      border-gray-200
+      bg-white
+      rounded-full
+      px-6
+      py-4
+      shadow-sm
+      focus:ring-2
+      focus:ring-amber-700
+      outline-none
+    "
+  />
+
+</div>
+<div className="flex gap-3 overflow-x-auto mb-10">
+
+  {[
+    "All",
+    "Handloom",
+    "Printed",
+    "Office Wear",
+    "Festive",
+    "Premium Cotton"
+  ].map((item) => (
+
+    <button
+      key={item}
+      className="
+        px-5
+        py-2
+        rounded-full
+        border
+        hover:bg-black
+        hover:text-white
+        transition
+      "
+    >
+      {item}
+    </button>
+
+  ))}
+
+</div>
+<div className="flex justify-between items-center mb-8">
+
+  <h2 className="font-medium text-gray-600">
+    Showing {filteredProducts.length} Products
+  </h2>
+
+</div>
       {/* Product Grid */}
-      <div className="grid md:grid-cols-4 gap-8">
+      <div
+  className="
+    grid
+    grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-3
+    xl:grid-cols-4
+    gap-8
+  "
+>
         {filteredProducts.map((product) => (
           <div
   key={product._id}
@@ -97,24 +208,36 @@ function AllProducts() {
       `/products/${product._id}`
     )
   }
-  className="
+   className="
+    relative
+    group
     cursor-pointer
     bg-white
-    rounded-xl
-    shadow
-    hover:shadow-xl
-    transition
+    rounded-2xl
+    overflow-hidden
+    border
+    border-gray-100
+    hover:shadow-2xl
+    transition-all
+    duration-500
   "
 >
-            <img
-              src={product.images?.[0]}
-              alt={product.name}
-              className="
-                w-full
-                h-96
-                object-cover
-              "
-            />
+            <div className="overflow-hidden">
+
+  <img
+    src={product.images?.[0]}
+    alt={product.name}
+    className="
+      w-full
+      h-[500px]
+      object-cover
+      transition-transform
+      duration-700
+      group-hover:scale-110
+    "
+  />
+
+</div>
 
             <div className="p-4">
 
@@ -135,6 +258,16 @@ function AllProducts() {
                 <div className="flex gap-3">
 {/* Wishlist */}
                   <button
+  className="
+    absolute
+    top-4
+    right-4
+    bg-white
+    p-2
+    rounded-full
+    shadow-md
+  "
+
   onClick={(e) => {
     e.stopPropagation();
 

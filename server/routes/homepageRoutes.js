@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const Homepage = require("../models/Homepage");
+const HomepageSection = require("../models/HomepageSection");
 
 router.get("/", async (req, res) => {
   try {
-    const section = await Homepage.findOne();
+    const section =
+      await HomepageSection.findOne({
+        active: true,
+      });
 
     res.json(section);
   } catch (error) {
@@ -18,7 +21,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const section =
-      await Homepage.findOneAndUpdate(
+      await HomepageSection.findOneAndUpdate(
         {},
         req.body,
         {
