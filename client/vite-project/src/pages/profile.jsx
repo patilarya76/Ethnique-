@@ -47,14 +47,25 @@ const addAddress = async () => {
       }
     );
 
-    const data =
-      await res.json();
+    const data = await res.json();
 
-    console.log(data);
+console.log(
+  "ADDRESS SAVE RESPONSE:",
+  data
+);
 
-    alert("Address Added");
+if (!res.ok) {
+  throw new Error(
+    data.message ||
+      "Failed to save address"
+  );
+}
 
-fetchAddresses();
+await fetchAddresses();
+
+alert(
+  "Address Added Successfully"
+);
 
 setShowAddressModal(false);
 
@@ -130,24 +141,38 @@ useEffect(() => {
 
 const fetchAddresses =
   async () => {
+    try {
+      const token =
+        localStorage.getItem(
+          "token"
+        );
 
-  const token =
-    localStorage.getItem("token");
+      const res =
+        await fetch(
+          "http://localhost:5000/api/address",
+          {
+            headers: {
+              Authorization:
+                token,
+            },
+          }
+        );
 
-  const res = await fetch(
-    "http://localhost:5000/api/address",
-    {
-      headers: {
-        Authorization: token,
-      },
+      const data =
+        await res.json();
+
+      console.log(
+        "FETCHED ADDRESSES:",
+        data
+      );
+
+      setAddresses(data);
+
+      return data;
+    } catch (err) {
+      console.log(err);
     }
-  );
-
-  const data =
-    await res.json();
-
-  setAddresses(data);
-};
+  };
   return (
     <div className="min-h-screen bg-[#F8F5F2] py-12 px-4">
 

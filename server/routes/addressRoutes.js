@@ -29,9 +29,22 @@ router.post(
   authMiddleware,
   async (req, res) => {
     try {
+      console.log(
+  "USER ID:",
+  req.user.id
+);
+
+console.log(
+  "BODY:",
+  req.body
+);
       const user = await User.findById(
         req.user.id
       );
+      console.log(
+  "BEFORE SAVE:",
+  user.addresses.length
+);
 
       user.addresses.push({
         fullName: req.body.fullName,
@@ -44,7 +57,11 @@ router.post(
         country: req.body.country,
       });
 
-      await user.save();
+      await user.save(); 
+      console.log(
+  "AFTER SAVE:",
+  user.addresses.length
+);
 
       res.json({
         success: true,

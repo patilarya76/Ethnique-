@@ -216,29 +216,83 @@ const Navbar = () => {
 )}
 
             {/* <CurrencyToggle /> */}
-            <select
-  value={country}
-  onChange={(e) =>
-    changeCountry(
-      e.target.value
-    )
-  }
+ <div
   className="
-    border
+    relative
+    flex
+    items-center
+    bg-[#F5F2EE]
     rounded-full
-    px-3
-    py-2
-    text-sm
+    p-1
+    border
+    border-[#E5DDD5]
+    shadow-sm
+    w-[170px]
+    h-[48px]
   "
 >
-  <option value="IND">
-    🇮🇳 IND
-  </option>
+  {/* Active Background */}
+ <div
+  className={`
+    absolute
+    top-1
+    bottom-1
+    w-[80px]
+    rounded-full
+    bg-white
+    shadow-[0_4px_20px_rgba(109,24,48,0.15)]
+    transition-all
+    duration-300
+    ${
+      country === "USA"
+        ? "translate-x-[82px]"
+        : "translate-x-0"
+    }
+  `}
+/>
 
-  <option value="USA">
-    🇺🇸 USA
-  </option>
-</select>
+  <button
+    onClick={() =>
+      changeCountry("IND")
+    }
+    className={`
+      relative
+      z-10
+      flex-1
+      text-sm
+      font-medium
+      transition
+      ${
+        country === "IND"
+          ? "text-[#6D1830]"
+          : "text-gray-500"
+      }
+    `}
+  >
+    ₹ INR
+  </button>
+
+  <button
+    onClick={() =>
+      changeCountry("USA")
+    }
+    className={`
+      relative
+      z-10
+      flex-1
+      text-sm
+      font-medium
+      transition
+      ${
+        country === "USA"
+          ? "text-[#6D1830]"
+          : "text-gray-500"
+      }
+    `}
+  >
+    $ USD
+  </button>
+</div>
 </div>    
  </div>
       </nav>

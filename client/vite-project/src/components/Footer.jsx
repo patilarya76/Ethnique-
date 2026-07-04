@@ -9,32 +9,83 @@ const Footer = () => {
   return (
     <footer className="bg-[#faf7f2] mt-16">
       {/* Join Section */}
-      <div className="text-center py-10 border-b">
-       <h2 className="text-4xl font-light tracking-[0.2em] mb-4">
-  JOIN THE ETHNIQUE CIRCLE
-</h2>
-<p className="text-gray-500 mb-6">
-  Receive exclusive launches,
-  styling inspiration and member-only offers.
-</p>
+      {/* Brand Timeline */}
+<div className="py-13 bg-[#faf7f2]">
 
-        <div className="max-w-md mx-auto flex">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="flex-1 border border-gray-300 rounded-l-lg px-4 py-3 outline-none"
-          />
-          <button className="bg-black text-white px-6 rounded-r-lg">
-            Join
-          </button>
+  <div className="max-w-6xl mx-auto px-6">
+
+    <h2 className="text-center  mr-10 text-5xl font-serif mb-4 text-[#1f2a44]">
+  Our Journey
+</h2>
+
+    <p className="text-center text-gray-500 mb-14">
+      A celebration of timeless Indian craftsmanship.
+    </p>
+
+    <div className="relative">
+
+      {/* Line */}
+      <div className="hidden md:block absolute top-5 left-0 w-full h-[1px] bg-[#d4b06a]" />
+
+      <div className="grid md:grid-cols-4 gap-10 relative">
+
+        <div className="text-center transition-all duration-300 hover:-translate-y-2">
+          <div className="w-10 h-10 mx-auto rounded-full bg-[#b8860b] border-4 border-white shadow-md mb-4 transition-all duration-300 hover:scale-125 hover:shadow-xl" />
+          <h3 className="font-semibold text-lg">
+            2020
+          </h3>
+          <p className="text-gray-600 mt-2">
+            Ethnique was founded with a vision to
+            celebrate India's weaving heritage.
+          </p>
         </div>
+
+        <div className="text-center transition-all duration-300 hover:-translate-y-2">
+          <div className="w-10 h-10 mx-auto rounded-full bg-[#b8860b] border-4 border-white shadow-md mb-4 transition-all duration-300 hover:scale-125 hover:shadow-xl" />
+          <h3 className="font-semibold text-lg">
+            2022
+          </h3>
+          <p className="text-gray-600 mt-2">
+            Expanded our handcrafted saree
+            collections across India.
+          </p>
+        </div>
+
+        <div className="text-center transition-all duration-300 hover:-translate-y-2">
+          <div className="w-10 h-10 mx-auto rounded-full bg-[#b8860b] border-4 border-white shadow-md mb-4 transition-all duration-300 hover:scale-125 hover:shadow-xl" />
+          <h3 className="font-semibold text-lg">
+            2024
+          </h3>
+          <p className="text-gray-600 mt-2">
+            Introduced exclusive handloom and
+            festive collections.
+          </p>
+        </div>
+
+        <div className="text-center transition-all duration-300 hover:-translate-y-2">
+          <div className="w-10 h-10 mx-auto rounded-full bg-[#b8860b] border-4 border-white shadow-md mb-4 transition-all duration-300 hover:scale-125 hover:shadow-xl" />
+          <h3 className="font-semibold text-lg">
+            Today
+          </h3>
+          <p className="text-gray-600 mt-2">
+            Bringing timeless elegance to women
+            across the country.
+          </p>
+        </div>
+
       </div>
 
-      <div className="border-t border-gray-200">
+    </div>
 
-  <div className="max-w-7xl mx-auto px-6 py-10">
+  </div>
 
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+</div>
+
+      {/* <div className="border-t border-gray-200"> */}
+
+  {/* <div className="max-w-7xl mx-auto px-6 py-10"> */}
+
+    {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
 
       <div>
         <h4 className="font-semibold">
@@ -74,13 +125,13 @@ const Footer = () => {
         <p className="text-sm text-gray-500">
           Handpicked Fabrics
         </p>
-      </div>
+      </div> */}
 
-    </div>
+    {/* </div> */}
 
-  </div>
+  {/* </div> */}
 
-</div>
+{/* </div> */}
 
       {/* Footer Content */}
       {/* Main Footer */}
