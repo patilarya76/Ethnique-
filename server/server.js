@@ -16,6 +16,8 @@ const addressRoutes =
 const upload = multer({
   storage,
 });
+// const reelRoutes =
+//   require("./routes/reelRoutes");
 const userRoutes = require("./routes/userroutes");
 const app = express();
 const connectDB = require("./config/db");
@@ -33,6 +35,10 @@ app.use(
 );
 app.use(
   "/api/address", addressRoutes); 
+// app.use(
+//   "/api/reels",
+//   reelRoutes
+// );
 
 
 

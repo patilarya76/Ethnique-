@@ -86,7 +86,7 @@ const Navbar = () => {
 
             <NavItem to="/" label="Home" />
             <NavItem to="/products" label="Shop" />
-            <NavItem to="/collections" label="Collections" />
+            <NavItem to="/reels" label="Reels" />
 
             <div className="relative">
  <Heart
@@ -157,35 +157,6 @@ const Navbar = () => {
     </span>
   )}
 </div>
-
-            {/* Auth Section */}
-           {/* {user ? (
-  <div className="flex items-center gap-3">
-    <span className="text-xs text-gray-600">
-      Hello, {user?.name?.split(" ")[0] || "User"}
-    </span>
-
-    <button
-      onClick={logout}
-      className="text-xs text-red-500"
-    >
-      Logout
-    </button>
-  </div>
-) : (
-  <Link to="/login">
-    <User
-      size={22}
-      className="
-        cursor-pointer
-        transition-all
-        duration-300
-        hover:text-[#8C2F4D]
-        hover:scale-110
-      "
-    />
-  </Link>
-)} */}
 
 {user ? (
   <Link to="/profile">
@@ -337,18 +308,6 @@ const Navbar = () => {
 
   {/* Top Row */}
   <div className="flex items-center justify-between">
-
-    {/* <button
-      onClick={() => setMenuOpen(false)}
-      className="
-        p-2
-        rounded-full
-        hover:bg-[#F3EEE7]
-        transition
-      "
-    >
-      <X size={24} />
-    </button> */}
 
     <h2 className="font-serif text-2xl text-[#6D1830]">
       Menu

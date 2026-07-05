@@ -23,6 +23,10 @@ useEffect(() => {
     JSON.stringify(cart)
   );
 }, [cart]);
+const clearCart = () => {
+  setCart([]);
+  localStorage.removeItem("cart");
+};
 
   const addToCart = (product) => {
     const exists = cart.find(
@@ -101,6 +105,7 @@ const decreaseQuantity = (id) => {
       removeFromCart,
       increaseQuantity,
       decreaseQuantity,
+      clearCart,
     }}
   >
       {children}

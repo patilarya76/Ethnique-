@@ -175,7 +175,7 @@ console.log("FEATURED:", featuredSection);
 
   </div>
 </div>
-        {products.map((product) => (
+        {products.slice(0, 6).map((product) => (
   <Link
     to="/products"
     key={product._id}

@@ -32,6 +32,7 @@ import Profile from "./pages/profile.jsx";
 
 // Admin Layout
 import AdminLayout from "./layouts/AdminLayout.jsx";
+import AdminReels from "../src/pages/admin/AdminReels.jsx";
 
 function AppContent() {
   const location = useLocation();
@@ -123,6 +124,14 @@ function AppContent() {
         </ProtectedRoute>
       }
     />
+    <Route
+  path="/admin/reels"
+  element={
+    <ProtectedRoute>
+      <AdminReels />
+    </ProtectedRoute>
+  }
+/>
 
   </Route>
     <Route path="/about" element={<AboutPage />} />

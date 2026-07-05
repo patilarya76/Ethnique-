@@ -50,6 +50,9 @@ function AdminSidebar() {
       >
         Customers
       </Link>
+     <Link to="/admin/reels">
+  Reels
+</Link>
 
       <button
         onClick={handleLogout}

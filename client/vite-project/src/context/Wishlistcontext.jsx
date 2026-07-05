@@ -27,6 +27,10 @@ export const WishlistProvider = ({
     JSON.stringify(wishlist)
   );
 }, [wishlist]);
+const clearWishlist = () => {
+  setWishlist([]);
+  localStorage.removeItem("wishlist");
+};
 
   const addToWishlist = (
     product
@@ -61,6 +65,7 @@ export const WishlistProvider = ({
         wishlist,
         addToWishlist,
         removeFromWishlist,
+        clearWishlist,
       }}
     >
       {children}
