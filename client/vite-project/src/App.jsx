@@ -13,7 +13,7 @@ import Navbar from "../src/components/navbar.jsx";
 import ProtectedRoute from "../src/pages/admin/Protectedroute.jsx"; 
 import ProductDetails from "./pages/Productdetails.jsx";
 // Admin Pages
-import AdminLogin from "./pages/admin/AdminLogin.jsx";
+import AdminLogin from "./pages/admin/Adminlogin.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import Products from "./pages/admin/Products.jsx";
 import Orders from "./pages/admin/Orders.jsx";
