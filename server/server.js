@@ -113,6 +113,12 @@ app.get("/test", (req, res) => {
   });
 });
 
+app.get("/db-status", (req, res) => {
+  res.json({
+    readyState: require("mongoose").connection.readyState,
+  });
+});
+
 // router.get("/homepage", async (req, res) => {
 //   try {
 //     const section =
