@@ -10,7 +10,7 @@ import Login from "./pages/loginpage.jsx";
 import Reels from "./pages/reels.jsx";
 import AllProducts from "./pages/AllProduct.jsx";
 import Navbar from "../src/components/navbar.jsx";
-import ProtectedRoute from "../src/pages/admin/ProtectedRoute"; 
+import ProtectedRoute from "../src/pages/admin/Protectedroute.jsx"; 
 import ProductDetails from "./pages/Productdetails.jsx";
 // Admin Pages
 import AdminLogin from "./pages/admin/AdminLogin.jsx";
