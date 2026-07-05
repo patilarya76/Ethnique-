@@ -6,7 +6,7 @@ function Homepage() {
 
   const saveSection = async () => {
     await fetch(
-      "http://localhost:5000/api/homepage",
+      "https://ethnique.onrender.com/api/homepage",
       {
         method: "POST",
         headers: {

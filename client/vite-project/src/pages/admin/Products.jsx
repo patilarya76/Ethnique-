@@ -28,7 +28,7 @@ function Products() {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/admin/products"
+        "https://ethnique.onrender.com/api/admin/products"
       );
 
       const data = await response.json();
@@ -42,12 +42,12 @@ function Products() {
   const saveProduct = async () => {
     try {
       let url =
-        "http://localhost:5000/api/admin/products";
+        "https://ethnique.onrender.com/api/admin/products";
 
       let method = "POST";
 
       if (editingId) {
-        url = `http://localhost:5000/api/admin/products/${editingId}`;
+        url = `https://ethnique.onrender.com/api/admin/products/${editingId}`;
         method = "PUT";
       }
 
@@ -106,7 +106,7 @@ function Products() {
 
     try {
       await fetch(
-        `http://localhost:5000/api/admin/products/${id}`,
+        `https://ethnique.onrender.com/api/admin/products/${id}`,
         {
           method: "DELETE",
         }

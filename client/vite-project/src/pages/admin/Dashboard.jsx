@@ -10,7 +10,7 @@ function Dashboard() {
   const fetchStats = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/dashboard"
+        "https://ethnique.onrender.com/api/admin/dashboard"
       );
 
       const data = await res.json();

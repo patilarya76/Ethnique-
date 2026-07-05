@@ -37,7 +37,7 @@ const {
   const fetchProduct = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/products/${id}`
+        `https://ethnique.onrender.com/api/admin/products/${id}`
       );
 
       const data = await response.json();

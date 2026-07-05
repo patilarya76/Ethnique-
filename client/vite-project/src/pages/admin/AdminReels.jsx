@@ -15,7 +15,7 @@ function AdminReels() {
   const fetchReels = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/reels"
+        "https://ethnique.onrender.com/api/reels"
       );
 
       const data = await res.json();
@@ -29,7 +29,7 @@ function AdminReels() {
   const addReel = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/reels",
+        "https://ethnique.onrender.com/api/reels",
         {
           method: "POST",
           headers: {
@@ -61,7 +61,7 @@ function AdminReels() {
   const deleteReel = async (id) => {
     try {
       await fetch(
-        `http://localhost:5000/api/reels/${id}`,
+        `https://ethnique.onrender.com/api/reels/${id}`,
         {
           method: "DELETE",
         }
