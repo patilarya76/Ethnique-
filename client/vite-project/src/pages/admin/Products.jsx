@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 function Products() {
   const [products, setProducts] = useState([]);
 
-  const [editingId, setEditingId] = useState(null);
+const [editingId, setEditingId] = useState(null);
+const [showForm, setShowForm] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -67,6 +68,7 @@ function Products() {
       const data = await response.json();
 
       if (data.success) {
+        
         alert(
           editingId
             ? "Product Updated Successfully"
@@ -74,6 +76,7 @@ function Products() {
         );
 
         setEditingId(null);
+        setShowForm(false);
 
         setFormData({
           name: "",
@@ -88,6 +91,7 @@ function Products() {
           priceINR: "",
           stock: "",
           image: "",
+          video: "",
         });
 
         fetchProducts();
@@ -118,53 +122,154 @@ function Products() {
     }
   };
 
-  const editProduct = (product) => {
-    setEditingId(product._id);
+const editProduct = (product) => {
+  setShowForm(true);
 
-    setFormData({
-      name: product.name || "",
-      sku: product.sku || "",
-      description:
-        product.description || "",
-      highlight:
-        product.highlight || "",
-      fabric: product.fabric || "",
-      color: product.color || "",
-      sareeLength:
-        product.sareeLength || "",
-      blouse: product.blouse || "",
-      collection:
-        product.collection || "",
-      priceINR:
-        product.priceINR || "",
-      stock: product.stock || "",
-      image:
-        product.images?.[0] || "",
+  setEditingId(product._id);
 
-      video:
-        product.video || "",
-    });
+  setFormData({
+    name: product.name || "",
+    sku: product.sku || "",
+    description: product.description || "",
+    highlight: product.highlight || "",
+    fabric: product.fabric || "",
+    color: product.color || "",
+    sareeLength: product.sareeLength || "",
+    blouse: product.blouse || "",
+    collection: product.collection || "",
+    priceINR: product.priceINR || "",
+    stock: product.stock || "",
+    image: product.images?.[0] || "",
+    video: product.video || "",
+  });
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
   return (
     <div style={{ padding: "30px" }}>
-      <h1>
-        {editingId
-          ? "Update Product"
-          : "Add Product"}
-      </h1>
+      <div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "30px",
+  }}
+>
+  <div>
+    <h1
+      style={{
+        fontSize: "32px",
+        marginBottom: "5px",
+      }}
+    >
+      Products
+    </h1>
+
+    <p
+      style={{
+        color: "#777",
+      }}
+    >
+      Manage your saree collection
+    </p>
+  </div>
+
+  <button
+    onClick={() => {
+      setEditingId(null);
+
+      setFormData({
+        name: "",
+        sku: "",
+        description: "",
+        highlight: "",
+        fabric: "",
+        color: "",
+        sareeLength: "",
+        blouse: "",
+        collection: "",
+        priceINR: "",
+        stock: "",
+        image: "",
+        video: "",
+      });
+
+      setShowForm(true);
+    }}
+    style={{
+      background: "#5b1123",
+      color: "white",
+      border: "none",
+      padding: "12px 24px",
+      borderRadius: "12px",
+      cursor: "pointer",
+      fontWeight: "600",
+    }}
+  >
+    + Add Product
+  </button>
+</div>
+
+      {showForm && (
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 999,
+    }}
+  >
+    <div
+      style={{
+        background: "#fff",
+        width: "900px",
+        maxHeight: "90vh",
+        overflowY: "auto",
+        borderRadius: "20px",
+        padding: "30px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <h2>
+          {editingId
+            ? "Update Product"
+            : "Add Product"}
+        </h2>
+
+        <button
+          onClick={() =>
+            setShowForm(false)
+          }
+          style={{
+            border: "none",
+            background: "none",
+            fontSize: "24px",
+            cursor: "pointer",
+          }}
+        >
+          ×
+        </button>
+      </div>
 
       <div
         style={{
           display: "grid",
-          gap: "10px",
-          maxWidth: "600px",
-          marginBottom: "40px",
+          gridTemplateColumns:
+            "1fr 1fr",
+          gap: "15px",
         }}
       >
         <input
@@ -195,7 +300,8 @@ function Products() {
           onChange={(e) =>
             setFormData({
               ...formData,
-              priceINR: e.target.value,
+              priceINR:
+                e.target.value,
             })
           }
         />
@@ -212,61 +318,14 @@ function Products() {
         />
 
         <input
-          placeholder="Image URL"
-          value={formData.image}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              image: e.target.value,
-            })
+          placeholder="Collection"
+          value={
+            formData.collection
           }
-        />
-        <input
-          placeholder="Video URL"
-          value={formData.video}
-          onChange={(e) =>
-              setFormData({
-                ...formData,
-                video: e.target.value,
-              })
-            }
-          />
-        {formData.image && (
-          <img
-            src={formData.image}
-            alt="Preview"
-            width="150"
-            style={{
-              borderRadius: "10px",
-            }}
-          />
-        )}
-        {formData.video && (
-          <video
-            src={formData.video}
-            width="250"
-            controls
-          />
-        )}
-        <input
-          placeholder="Description"
-          value={formData.description}
           onChange={(e) =>
             setFormData({
               ...formData,
-              description:
-                e.target.value,
-            })
-          }
-        />
-
-        <input
-          placeholder="Highlight"
-          value={formData.highlight}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              highlight:
+              collection:
                 e.target.value,
             })
           }
@@ -295,18 +354,6 @@ function Products() {
         />
 
         <input
-          placeholder="Saree Length"
-          value={formData.sareeLength}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              sareeLength:
-                e.target.value,
-            })
-          }
-        />
-
-        <input
           placeholder="Blouse"
           value={formData.blouse}
           onChange={(e) =>
@@ -318,21 +365,131 @@ function Products() {
         />
 
         <input
-          placeholder="Collection"
-          value={formData.collection}
+          placeholder="Saree Length"
+          value={
+            formData.sareeLength
+          }
           onChange={(e) =>
             setFormData({
               ...formData,
-              collection:
+              sareeLength:
                 e.target.value,
             })
           }
         />
 
+        <input
+          placeholder="Highlight"
+          value={
+            formData.highlight
+          }
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              highlight:
+                e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <textarea
+        placeholder="Description"
+        value={
+          formData.description
+        }
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            description:
+              e.target.value,
+          })
+        }
+        style={{
+          width: "100%",
+          marginTop: "15px",
+          minHeight: "120px",
+        }}
+      />
+
+      <input
+        placeholder="Image URL"
+        value={formData.image}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            image: e.target.value,
+          })
+        }
+        style={{
+          width: "100%",
+          marginTop: "15px",
+        }}
+      />
+
+      {formData.image && (
+        <img
+          src={formData.image}
+          alt="preview"
+          style={{
+            width: "150px",
+            marginTop: "15px",
+            borderRadius: "10px",
+          }}
+        />
+      )}
+
+      <input
+        placeholder="Video URL"
+        value={formData.video}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            video: e.target.value,
+          })
+        }
+        style={{
+          width: "100%",
+          marginTop: "15px",
+        }}
+      />
+
+      {formData.video && (
+        <video
+          src={formData.video}
+          controls
+          width="250"
+          style={{
+            marginTop: "15px",
+          }}
+        />
+      )}
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: "10px",
+          marginTop: "25px",
+        }}
+      >
+        <button
+          onClick={() =>
+            setShowForm(false)
+          }
+        >
+          Cancel
+        </button>
+
         <button
           onClick={saveProduct}
           style={{
-            padding: "12px",
+            background: "#5b1123",
+            color: "#fff",
+            border: "none",
+            padding:
+              "12px 24px",
+            borderRadius: "10px",
             cursor: "pointer",
           }}
         >
@@ -341,6 +498,9 @@ function Products() {
             : "Add Product"}
         </button>
       </div>
+    </div>
+  </div>
+)}
 
       <h3>
         Total Products: {products.length}

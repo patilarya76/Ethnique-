@@ -38,12 +38,14 @@ router.post("/signup", async (req, res) => {
     );
 
     return res.json({
-      token,
-      user: {
-        name: user.name,
-        email: user.email,
-      },
-    });
+  token,
+  user: {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  },
+});
   } catch (err) {
     console.error("SIGNUP ERROR:", err);
     return res.status(500).json({ msg: err.message || "Server error" });
@@ -88,12 +90,14 @@ router.post("/login", async (req, res) => {
     );
 
     return res.json({
-      token,
-      user: {
-        name: user.name,
-        email: user.email,
-      },
-    });
+  token,
+  user: {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  },
+});
   } catch (err) {
     console.error("LOGIN ERROR:", err);
     return res.status(500).json({ msg: err.message || "Server error" });

@@ -145,7 +145,7 @@ function AppContent() {
 <Route path="/loyalty" element={<LoyaltyPage />} />
 </Routes>
 
-<Footer />
+{!isAdminRoute && <Footer />}
     </>
   );
 }

@@ -49,7 +49,14 @@ const Login = () => {
 
       // ✅ success
       login(data.user, data.token);
-      navigate("/");
+console.log("FULL RESPONSE:", data);
+console.log("USER DATA:", data.user);
+console.log("ROLE:", data.user.role);
+if (data.user.role === "admin") {
+  navigate("/admin/dashboard");
+} else {
+  navigate("/");
+}
 
     } catch (err) {
       console.error("LOGIN ERROR:", err);

@@ -166,7 +166,7 @@ const fetchAddresses =
         data
       );
 
-      setAddresses(data);
+      setAddresses(data.addresses || []);
 
       return data;
     } catch (err) {
