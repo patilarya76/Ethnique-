@@ -53,55 +53,97 @@ router.post("/signup", async (req, res) => {
 });
 
 // LOGIN
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Email received:", email);
+console.log("Password received:", password);
 
-    console.log("LOGIN BODY:", req.body);
+console.log("ENV ADMIN EMAIL:", process.env.ADMIN_EMAIL);
+console.log("ENV ADMIN PASSWORD:", process.env.ADMIN_PASSWORD);
 
-    if (!email || !password) {
-      return res.status(400).json({ msg: "Please fill all fields" });
+    // ==========================
+    // ADMIN LOGIN
+    // ==========================
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(
+        {
+          role: "admin",
+          email,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "7d",
+        }
+      );
+
+      return res.json({
+        success: true,
+        token,
+        user: {
+          name: "Dhruv Jain",
+          email,
+          role: "admin",
+        },
+      });
     }
 
-    if (!process.env.JWT_SECRET) {
-      return res.status(500).json({ msg: "JWT secret missing" });
-    }
+    // ==========================
+    // USER LOGIN
+    // ==========================
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+      });
     }
 
-    if (!user.password) {
-      return res.status(500).json({ msg: "User password missing in database" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+      });
     }
 
     const token = jwt.sign(
-      { id: user._id },
+      {
+        id: user._id,
+        role: "user",
+      },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      {
+        expiresIn: "7d",
+      }
     );
 
-    return res.json({
-  token,
-  user: {
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    role: user.role,
-  },
-});
+    res.json({
+      success: true,
+      token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: "user",
+      },
+    });
+
   } catch (err) {
-    console.error("LOGIN ERROR:", err);
-    return res.status(500).json({ msg: err.message || "Server error" });
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
 });
-
 module.exports = router;

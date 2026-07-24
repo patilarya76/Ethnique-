@@ -48,10 +48,14 @@ const Login = () => {
       }
 
       // ✅ success
-      login(data.user, data.token);
-console.log("FULL RESPONSE:", data);
-console.log("USER DATA:", data.user);
-console.log("ROLE:", data.user.role);
+     // Save user in AuthContext
+login(data.user, data.token);
+
+// Save in localStorage
+localStorage.setItem("token", data.token);
+localStorage.setItem("user", JSON.stringify(data.user));
+
+// Redirect based on role
 if (data.user.role === "admin") {
   navigate("/admin/dashboard");
 } else {

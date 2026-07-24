@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function AdminLogin() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -17,42 +19,39 @@ function AdminLogin() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch(
-        "https://ethnique.onrender.com/api/admin/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        localStorage.setItem(
-          "adminToken",
-          data.token
-        );
-
-        localStorage.setItem(
-          "adminInfo",
-          JSON.stringify(data.admin)
-        );
-
-        navigate("/admin/dashboard");
-      } else {
-        alert(data.message);
+  try {
+    const response = await fetch(
+      "https://ethnique.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       }
-    } catch (error) {
-      console.log(error);
-      alert("Login failed");
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return alert(data.message || "Login failed");
     }
-  };
+
+    if (data.user.role !== "admin") {
+      return alert("Only admins can access this page.");
+    }
+
+    login(data.user, data.token);
+
+    navigate("/admin/dashboard");
+
+  } catch (error) {
+    console.log(error);
+    alert("Login failed");
+  }
+};
 
 
     return (

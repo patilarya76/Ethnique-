@@ -63,9 +63,7 @@ router.post("/login", async (req, res) => {
 //   "/dashboard",
 //   adminAuth,
 //   async (req, res) => {
-  router.get(
-  "/dashboard",
-  async (req, res) => {
+  router.get("/dashboard", adminAuth, async (req, res) => {
     try {
       const totalUsers =
         await User.countDocuments();
@@ -103,7 +101,7 @@ router.get("/check-token", adminAuth, (req, res) => {
   });
 });
 
-router.get("/products", async (req, res) => {
+router.get("/products", adminAuth, async (req, res) => {
   try {
     const products = await Product.find();
 
@@ -119,7 +117,7 @@ router.get("/products", async (req, res) => {
   }
 });
 
-router.post("/products", async (req, res) => {
+router.post("/products", adminAuth, async (req, res) => {
   try {
     console.log("BODY RECEIVED:");
     console.log(req.body);
@@ -141,9 +139,7 @@ router.post("/products", async (req, res) => {
   }
 });
 
-router.delete(
-  "/products/:id",
-  async (req, res) => {
+router.delete("/products/:id", adminAuth, async (req, res) => {
     try {
       await Product.findByIdAndDelete(
         req.params.id
@@ -163,9 +159,7 @@ router.delete(
   }
 );
 
-router.put(
-  "/products/:id",
-  async (req, res) => {
+router.put("/products/:id", adminAuth, async (req, res) => {
     try {
       const product =
         await Product.findByIdAndUpdate(
@@ -187,7 +181,7 @@ router.put(
   }
 );
 
-router.get("/products/:id", async (req, res) => {
+router.get("/products/:id", adminAuth, async (req, res) => {
   console.log(
     "PRODUCT DETAILS ROUTE HIT:",
     req.params.id

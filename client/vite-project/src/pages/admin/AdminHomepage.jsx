@@ -1,34 +1,46 @@
 import { useState } from "react";
-
+import adminApi from "../../services/adminApi";
 function Homepage() {
   const [videoUrl, setVideoUrl] =
     useState("");
 
-  const saveSection = async () => {
-    await fetch(
-      "https://ethnique.onrender.com/api/homepage",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          title: "Cotton Collection",
-          subtitle:
-            "Handwoven cotton sarees crafted for timeless elegance.",
-          videoUrl,
-          buttonText:
-            "Shop Collection",
-          buttonLink:
-            "/products",
-        }),
-      }
-    );
+  await fetch(
+  "https://ethnique.onrender.com/api/homepage",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+    },
+    body: JSON.stringify({
+      title: "Cotton Collection",
+      subtitle:
+        "Handwoven cotton sarees crafted for timeless elegance.",
+      videoUrl,
+      buttonText: "Shop Collection",
+      buttonLink: "/products",
+    }),
+  }
+);
 
     alert("Saved");
   };
+const saveSection = async () => {
+  try {
+    await adminApi.post("/homepage", {
+      title: "Cotton Collection",
+      subtitle:
+        "Handwoven cotton sarees crafted for timeless elegance.",
+      videoUrl,
+      buttonText: "Shop Collection",
+      buttonLink: "/products",
+    });
 
+    alert("Saved");
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <div>
       <h2>Homepage Section</h2>
@@ -48,6 +60,6 @@ function Homepage() {
       </button>
     </div>
   );
-}
+
 
 export default Homepage;

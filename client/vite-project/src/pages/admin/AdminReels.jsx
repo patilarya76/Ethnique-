@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import adminApi from "../../services/adminApi";
 function AdminReels() {
   const [reels, setReels] = useState([]);
 
@@ -13,65 +13,42 @@ function AdminReels() {
   }, []);
 
   const fetchReels = async () => {
-    try {
-      const res = await fetch(
-        "https://ethnique.onrender.com/api/reels"
-      );
+  try {
+    const data = await adminApi.get("/reels");
 
-      const data = await res.json();
-
-      setReels(data.reels || []);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+    setReels(data.reels || []);
+  } catch (error) {
+    console.log(error);
+  }
+};
   const addReel = async () => {
-    try {
-      const res = await fetch(
-        "https://ethnique.onrender.com/api/reels",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            videoUrl,
-            thumbnail,
-          }),
-        }
-      );
+  try {
+    const data = await adminApi.post("/reels", {
+      title,
+      videoUrl,
+      thumbnail,
+    });
 
-      const data = await res.json();
-
-      if (data.success) {
-        fetchReels();
-
-        setTitle("");
-        setVideoUrl("");
-        setThumbnail("");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteReel = async (id) => {
-    try {
-      await fetch(
-        `https://ethnique.onrender.com/api/reels/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
+    if (data.success) {
       fetchReels();
-    } catch (error) {
-      console.log(error);
+
+      setTitle("");
+      setVideoUrl("");
+      setThumbnail("");
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
+const deleteReel = async (id) => {
+  try {
+    await adminApi.delete(`/reels/${id}`);
+
+    fetchReels();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <div className="p-8 bg-[#F8F4EF] min-h-screen">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import adminApi from "../../services/adminApi";
 import {
   Package,
   ShoppingBag,
@@ -23,18 +23,16 @@ function Dashboard() {
   }, []);
 
   const fetchStats = async () => {
-    try {
-      const res = await fetch(
-        "https://ethnique.onrender.com/api/admin/dashboard"
-      );
+  try {
+    const data = await adminApi.get("/dashboard");
 
-      const data = await res.json();
+    setStats(data.stats);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-      setStats(data.stats);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+     
 
   if (!stats) {
     return (

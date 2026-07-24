@@ -1,48 +1,47 @@
 const jwt = require("jsonwebtoken");
-const Admin = require("../models/Admin");
 
-const adminAuth = async (req, res, next) => {
-  try {
-    const token = req.header("Authorization");
+const adminAuth = (req, res, next) => {
 
-    console.log("TOKEN RECEIVED:", token);
+    try {
 
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "No token provided",
-      });
+        const authHeader = req.header("Authorization");
+
+        if (!authHeader) {
+            return res.status(401).json({
+                success:false,
+                message:"No token"
+            });
+        }
+
+        const token = authHeader.startsWith("Bearer ")
+            ? authHeader.split(" ")[1]
+            : authHeader;
+
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        if(decoded.role !== "admin"){
+            return res.status(403).json({
+                success:false,
+                message:"Unauthorized"
+            });
+        }
+
+        req.admin = decoded;
+
+        next();
+
+    } catch(err){
+
+        res.status(401).json({
+            success:false,
+            message:"Invalid Token"
+        });
+
     }
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
-    );
-
-    console.log("DECODED:", decoded);
-
-    const admin = await Admin.findById(decoded.id);
-
-    console.log("ADMIN FOUND:", admin);
-
-    if (!admin) {
-      return res.status(401).json({
-        success: false,
-        message: "Admin not found",
-      });
-    }
-
-    req.admin = admin;
-    next();
-
-  } catch (error) {
-    console.log("AUTH ERROR:", error);
-
-    return res.status(401).json({
-      success: false,
-      message: "Unauthorized",
-    });
-  }
-};
+}
 
 module.exports = adminAuth;

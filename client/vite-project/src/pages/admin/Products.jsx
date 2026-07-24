@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import adminApi from "../../services/adminApi";
 function Products() {
   const [products, setProducts] = useState([]);
 
@@ -28,11 +28,11 @@ const [showForm, setShowForm] = useState(false);
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(
-        "https://ethnique.onrender.com/api/admin/products"
-      );
+     
 
-      const data = await response.json();
+const data = await adminApi.get("/products");
+
+setProducts(data.products || []);
 
       setProducts(data.products || []);
     } catch (error) {
@@ -52,20 +52,21 @@ const [showForm, setShowForm] = useState(false);
         method = "PUT";
       }
 
-      const response = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          images: [formData.image],
-          video: formData.video,
-        }),
-      });
+      let data;
 
-      const data = await response.json();
+if (editingId) {
+  data = await adminApi.put(`/products/${editingId}`, {
+    ...formData,
+    images: [formData.image],
+    video: formData.video,
+  });
+} else {
+  data = await adminApi.post("/products", {
+    ...formData,
+    images: [formData.image],
+    video: formData.video,
+  });
+}
 
       if (data.success) {
         
@@ -109,12 +110,7 @@ const [showForm, setShowForm] = useState(false);
     if (!confirmDelete) return;
 
     try {
-      await fetch(
-        `https://ethnique.onrender.com/api/admin/products/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      await adminApi.delete(`/products/${id}`);
 
       fetchProducts();
     } catch (error) {
